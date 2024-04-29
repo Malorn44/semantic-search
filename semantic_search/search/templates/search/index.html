@@ -1,0 +1,56 @@
+{% load static %}
+
+<!DOCTYPE html>
+<head>
+    <meta charset="UTF-8">
+    <title>Peerbound Search</title>
+    <link rel="stylesheet" type="text/css" href="{% static 'search/style.css' %}">
+    <script src="{% static 'search/script.js' %}"></script>
+</head>
+
+<body>
+    <div class="search-container">
+        <!-- Search Form -->
+        <form action="{% url 'index' %}" method="get">
+            <!-- Semantic Search slider -->
+            <div class="toggle-container">
+                <label for="semantic_search" class="toggle-label">Use Semantic Search</label>
+                <label class="switch">
+                    <input type="checkbox" name="semantic" {% if 'query' not in request.GET or request.GET.semantic == "on" %}checked{% endif %}>
+                    <span class="slider round"></span>
+                </label>
+            </div>
+            <!-- Search Box -->
+            <input type="text" name="query" class="search-box" placeholder="Search..."
+            minlength="1" maxlength="50" value="{{ request.GET.query }}" required
+            oninput="this.value = this.value.replace(/  +/g, ' ').replace(/^\s/, '');">
+            <!-- Submit Button -->
+            <button type="submit" class="search-button">Search</button>
+            <!-- Selector to choose number of search results -->
+            <select name="num_results" class="results-selector">
+                <option value="3" {% if request.GET.num_results == "3" %}selected{% endif %}>3</option>
+                <option value="5" {% if request.GET.num_results == "5" %}selected{% endif %}>5</option>
+                <option value="10" {% if request.GET.num_results == "10" %}selected{% endif %}>10</option>
+                <option value="20" {% if request.GET.num_results == "20" %}selected{% endif %}>20</option>
+            </select>
+        </form>
+    </div>
+    <!-- Display Search Results -->
+    <div class="results-container">
+        {% if results %}
+            <div class="results">
+                {% for result in results %}
+                    <div class="result">
+                        <a href="{{ result.link }}" class="result-title">{{ result.title }}</a>
+                        <p class="result-description">
+                            {{ result.descript }}...
+                        </p>
+                    </div>
+                {% endfor %}
+            </div>
+        {% else %}
+            <p class="no-results">No results found...</p>
+        {% endif %}
+    </div>
+</body>
+
