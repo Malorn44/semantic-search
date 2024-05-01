@@ -58,9 +58,9 @@ I want to take this section to discuss the hybrid search model briefly. While im
 
 Most of my code is in five files located in `semantic_search/search/logic/`
 
-- **utils.py:** Utility functions used mainly by `parser.py` and `search.py`
+- **utils.py:** Utility functions used mainly by `parser.py` and `keyword_search.py`
 - **keyword_search.py:** Code for performing Keyword Search
-- **parser.py:** This code is not used by the web app but can be run to re-generate the reverse index used by `search.py`
+- **parser.py:** This code is not used by the web app but can be run to re-generate the reverse index used by `keyword_search.py`
 - **semantic_search.py:** Code for performing Semantic Search
 - **embedder.py:** This code is not used by the web app but can be run to re-generate the embedding vectors used by `semantic_search.py`
 
